@@ -1,80 +1,73 @@
 const moveForwardButton = document.querySelector('.move__forward-btn');
 const moveBackwardButton = document.querySelector('.move__backward-btn');
-const elForestBg = document.querySelector('.forest');
+const elTrainBlock = document.querySelector('.train_block');
 const elTrain = document.querySelector('.train_img');
 const elTrainWheels = document.querySelectorAll('.wheels-dormancy');
+const elTrainLight = document.querySelector('.train-light');
+const elTrainLightStatus = document.querySelector('.light__swith-status');
+const twoWays = 2;
 
 const moveForwardBtn = (event) => {
-  elForestBg.classList.toggle('forest__move-forward');
+  elTrainBlock.classList.toggle('train__move-forward');
   elTrain.classList.toggle('train__move-animation');
   for ( let i = 0; i < elTrainWheels.length; i++) {
     elTrainWheels[i].classList.toggle('wheels_rotate-forward');
   }
 }
 const moveBackwardBtn = (event) => {
-  elForestBg.classList.toggle('forest__move-backward');
+  elTrainBlock.classList.toggle('train__move-backward');
   elTrain.classList.toggle('train__move-animation');
   for ( let i = 0; i < elTrainWheels.length; i++) {
     elTrainWheels[i].classList.toggle('wheels_rotate-backward');
   }
 }
-const moveKeysForTrain = (event) => {
+
+const moveKeydownForTrain = (event) => {
   if (event.code == 'ArrowLeft') {
-    elForestBg.classList.toggle('forest__move-forward');
-    elTrain.classList.toggle('train__move-animation');
+    elTrainBlock.classList.add('train__move-forward');
+    elTrain.classList.add('train__move-animation');
     for ( let i = 0; i < elTrainWheels.length; i++) {
-      elTrainWheels[i].classList.toggle('wheels_rotate-forward');
+      elTrainWheels[i].classList.add('wheels_rotate-forward');
     }
   } else if (event.code == 'ArrowRight') {
-    elForestBg.classList.toggle('forest__move-backward');
-    elTrain.classList.toggle('train__move-animation');
+    elTrainBlock.classList.add('train__move-backward');
+    elTrain.classList.add('train__move-animation');
     for ( let i = 0; i < elTrainWheels.length; i++) {
-      elTrainWheels[i].classList.toggle('wheels_rotate-backward');
+      elTrainWheels[i].classList.add('wheels_rotate-backward');
     }
   }
 }
+const moveKeyupForTrain = (event) => {
+  if (event.code == 'ArrowLeft') {
+    elTrainBlock.classList.remove('train__move-forward');
+    elTrain.classList.remove('train__move-animation');
+    for ( let i = 0; i < elTrainWheels.length; i++) {
+      elTrainWheels[i].classList.remove('wheels_rotate-forward');
+    }
+  } else if (event.code == 'ArrowRight') {
+    elTrainBlock.classList.remove('train__move-backward');
+    elTrain.classList.remove('train__move-animation');
+    for ( let i = 0; i < elTrainWheels.length; i++) {
+      elTrainWheels[i].classList.remove('wheels_rotate-backward');
+    }
+  }
+}
+const lightSwitchOftrain = (event) => {
+  if (event.code == 'KeyF') {
+    elTrainLight.classList.toggle('light-on');
+    if (elTrainLightStatus.textContent == 'Light off') {
+      elTrainLightStatus.textContent = 'Light on';
+    } else elTrainLightStatus.textContent = 'Light off';
+    
+  }
+}
 
-moveForwardButton.addEventListener('click', moveForwardBtn);
-moveBackwardButton.addEventListener('click', moveBackwardBtn);
-document.addEventListener('keydown', moveKeysForTrain);
+moveForwardButton.addEventListener('mousedown', moveForwardBtn);
+moveForwardButton.addEventListener('mouseup', moveForwardBtn);
+moveBackwardButton.addEventListener('mousedown', moveBackwardBtn);
+moveBackwardButton.addEventListener('mouseup', moveBackwardBtn);
+document.addEventListener('keydown', moveKeydownForTrain);
+document.addEventListener('keyup', moveKeyupForTrain);
+document.addEventListener('keydown', lightSwitchOftrain);
 
-
-
-
-// let el = document.addEventListener('keydown', (event) => {
-//   if (event.code == 'ArrowLeft') {
-//     testColor.classList.toggle('testcolor2');
-//   }
-//   console.log(event.code, event.key);
-// });
-
-// const cangeKeyColor = (event) => {
-//   if (event.key == 'ArrowLeft') {
-//     testColor.classList.toggle('testcolor2');
-//   }
-//   console.log(event.code, event.key);
-// }
-
-// document.addEventListener('keydown', cangeKeyColor);
-// document.addEventListener('keyup', cangeKeyColor);
-
-
-// const elBody = document.querySelector('body');
-// let rectangle = '';
-// for ( let i = 0; i <4; i++) {
-//   rectangle = rectangle + `<div class="block blue"></div>`;
-// }
-// console.log(elBody);
-// elBody.innerHTML = rectangle;
-
-// const elRectangle = document.querySelectorAll('.block');
-
-// const changeRectangleColor = (event) => { 
-//   event.target.classList.toggle('red');
-// }
-
-// for (k = 0; k < elRectangle.length; k++) {
-//   elRectangle[k].addEventListener('mousedown',changeRectangleColor);
-//   elRectangle[k].addEventListener('mouseup',changeRectangleColor);
-// }
 
